@@ -1,5 +1,7 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,15 +24,21 @@ public class Address {
     String ward;
     @Column(nullable = false)
     String detail;
+    @Column(nullable = false)
+    @JsonIgnore
+    Boolean isDefault;
+    @Column(nullable = false)
+    String receiverName;
+    @Column(nullable = false)
+    String receiverPhone;
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     Farmer farmer;
-
-    @OneToOne(mappedBy = "address")
-    Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @JsonBackReference
     Account account;
 
 }

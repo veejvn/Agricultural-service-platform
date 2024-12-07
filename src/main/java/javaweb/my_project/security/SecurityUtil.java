@@ -39,6 +39,6 @@ public class SecurityUtil {
              throw new AppException(HttpStatus.FORBIDDEN, "Insufficient permissions", "auth-e-08");
          }
         return farmerRepository.findByAccount(account)
-                .orElseThrow(() -> new AppException(HttpStatus.NOT_FOUND, "Shop not found", "shop-e-01"));
+                .orElseThrow(() -> new AppException(HttpStatus.NOT_FOUND, "Farmer not found", "farmer-e-01"));
     }
 }

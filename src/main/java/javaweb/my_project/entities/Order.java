@@ -1,5 +1,8 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import javaweb.my_project.enums.OrderStatus;
 import lombok.*;
@@ -24,28 +27,36 @@ public class Order {
 
     Integer totalQuantity;
 
+    @Column(columnDefinition = "TEXT")
     String note;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     OrderStatus status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
+    @JsonBackReference
     Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonManagedReference
     Set<OrderItem> orderItems = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
+    @JsonIgnore
     Set<Review> reviews = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "farmer_id")
+    @JsonBackReference
     Farmer farmer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
+    @JsonBackReference
     Account account;
 
     @PrePersist

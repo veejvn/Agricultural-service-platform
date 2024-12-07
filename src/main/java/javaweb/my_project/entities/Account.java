@@ -26,13 +26,13 @@ public class Account {
 
     String password;
 
+    String displayName;
+
     String phone;
 
     String avatar;
 
     LocalDate dob;
-
-    String displayName;
 
     @ElementCollection(targetClass =  Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -42,9 +42,6 @@ public class Account {
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     Farmer farmer;
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-    Cart cart;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     Set<ForumComment> forumComments = new HashSet<>();

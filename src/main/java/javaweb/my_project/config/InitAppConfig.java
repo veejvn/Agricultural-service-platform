@@ -10,6 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,8 +31,7 @@ public class InitAppConfig {
         return args -> {
             boolean isExistedAdmin = accountRepository.existsByEmail(ADMIN_EMAIL);
             if (isExistedAdmin) return;
-            Set<Role> roles = new HashSet<>();
-            roles.add(Role.ADMIN);
+            Set<Role> roles = EnumSet.allOf(Role.class);
             Account admin = Account.builder()
                     .email(ADMIN_EMAIL)
                     .displayName("Admin")

@@ -1,5 +1,6 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,8 +22,9 @@ public class MarketPrice {
 
     String region;
 
-    LocalDateTime DateRecorded;
+    LocalDateTime dateRecorded;
 
-    @OneToOne(mappedBy = "marketPrice")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "market_price_id")
     Product product;
 }

@@ -1,5 +1,6 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import javaweb.my_project.enums.FarmerStatus;
 import lombok.*;
@@ -26,7 +27,7 @@ public class Farmer {
 
     String coverImage;
 
-    String rating;
+    Double rating;
 
     String description;
 
@@ -34,26 +35,31 @@ public class Farmer {
     @Column(nullable = false)
     FarmerStatus status;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     Account account;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
+    @JsonIgnore
     Address address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "weather_info_id")
+    @OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
+    @JsonIgnore
     WeatherInfo weatherInfo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "farmer", orphanRemoval = true)
+    @JsonIgnore
     Set<Product> products =  new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "farmer", orphanRemoval = true)
+    @JsonIgnore
     Set<Order> orders = new HashSet<>();
 
     @PrePersist
     void onCreate(){
         this.status = FarmerStatus.ACTIVE;
+        this.rating = 5.0;
     }
 }

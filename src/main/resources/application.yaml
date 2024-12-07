@@ -43,5 +43,11 @@ app:
       key: ${CLOUDINARY_API_KEY}
       secret: ${CLOUDINARY_API_SECRET}
     folder: ${CLOUDINARY_FOLDER}
+  vnpay:
+    tmn_code:  EUY7BOQD
+    hash_secret: P6UNZ5IMP36AROUZGJJU7USMY7RQZSCD
+    payment_url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    return_url: http://localhost:8080/api/payment/vnpay-return
+
 server:
   port: ${PORT}

@@ -42,7 +42,7 @@ public class AuthController {
     public ResponseEntity<ApiResponse<Void>> register(@RequestBody @Valid AuthRegisterRequest request){
         authService.register(request);
         String verificationCode = UUID.randomUUID().toString();
-        codeUtil.save(verificationCode, request, 1);
+        codeUtil.save(verificationCode, request, 3);
         emailService.sendEmailToVerifyRegister(request.getEmail(), verificationCode);
         ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
                 .code("auth-s-01")

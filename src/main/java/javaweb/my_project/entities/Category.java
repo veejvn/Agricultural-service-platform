@@ -1,5 +1,6 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,10 +21,7 @@ public class Category {
 
     String name;
 
-    Long parent_id;
+    String parentId;
 
     Integer level;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true)
-    Set<Product> products = new HashSet<>();
 }
