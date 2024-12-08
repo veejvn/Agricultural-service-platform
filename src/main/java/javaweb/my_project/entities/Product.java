@@ -40,9 +40,9 @@ public class Product {
     @Column(nullable = false)
     ProductStatus status;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonIgnore
-    MarketPrice marketPrice;
+//    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    MarketPrice marketPrice;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
     @EqualsAndHashCode.Exclude
@@ -50,29 +50,22 @@ public class Product {
     @JsonManagedReference
     Set<Image> images = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonManagedReference
-    Set<Review> reviews = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    @JsonManagedReference
+//    Set<Review> reviews = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     Set<CartItem> cartItems = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonManagedReference
     Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)

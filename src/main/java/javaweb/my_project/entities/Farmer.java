@@ -35,7 +35,7 @@ public class Farmer {
     @Column(nullable = false)
     FarmerStatus status;
 
-    @OneToOne()
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     @JsonIgnore
     Account account;
@@ -45,9 +45,9 @@ public class Farmer {
     @JsonIgnore
     Address address;
 
-    @OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
-    @JsonIgnore
-    WeatherInfo weatherInfo;
+//    @OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    WeatherInfo weatherInfo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "farmer", orphanRemoval = true)
     @JsonIgnore

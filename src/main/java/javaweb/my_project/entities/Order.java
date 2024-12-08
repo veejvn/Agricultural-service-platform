@@ -8,6 +8,7 @@ import javaweb.my_project.enums.OrderStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,6 +52,8 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "farmer_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JsonBackReference
     Farmer farmer;
 
@@ -59,8 +62,12 @@ public class Order {
     @JsonBackReference
     Account account;
 
+    @JsonIgnore
+    LocalDateTime createdAt;
+
     @PrePersist
     void onCreate(){
         this.status = OrderStatus.PENDING;
+        this.createdAt = LocalDateTime.now();
     }
 }

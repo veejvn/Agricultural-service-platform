@@ -1,10 +1,13 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import javaweb.my_project.entities.embeddedId.CartItemId;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -22,11 +25,17 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    @JsonIgnore
     Account account;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonIgnore
     Product product;
+
+    @JsonIgnore
+    LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate(){
+        this.createdAt = LocalDateTime.now();
+    }
 }
