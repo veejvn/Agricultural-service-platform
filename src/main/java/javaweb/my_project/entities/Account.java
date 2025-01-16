@@ -46,21 +46,21 @@ public class Account {
     @JsonIgnore
     Farmer farmer;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
-//    @JsonIgnore
-//    Set<ForumComment> forumComments = new HashSet<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
-//    @JsonIgnore
-//    Set<Forum> forums = new HashSet<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
-//    @JsonIgnore
-//    Set<ArticleComment> articleComments = new HashSet<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
-//    @JsonIgnore
-//    Set<Article> articles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    @JsonIgnore
+    Set<ForumComment> forumComments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    @JsonIgnore
+    Set<Forum> forums = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    @JsonIgnore
+    Set<ArticleComment> articleComments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    @JsonIgnore
+    Set<Article> articles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     @JsonIgnore

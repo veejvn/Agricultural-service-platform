@@ -1,5 +1,6 @@
 package javaweb.my_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,5 +27,6 @@ public class MarketPrice {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "market_price_id")
+    @JsonIgnore
     Product product;
 }

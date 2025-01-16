@@ -45,9 +45,9 @@ public class Farmer {
     @JsonIgnore
     Address address;
 
-//    @OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    WeatherInfo weatherInfo;
+    @OneToOne(mappedBy = "farmer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    WeatherInfo weatherInfo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "farmer", orphanRemoval = true)
     @JsonIgnore

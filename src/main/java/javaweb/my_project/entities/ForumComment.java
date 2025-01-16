@@ -1,6 +1,7 @@
 package javaweb.my_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,11 +27,11 @@ public class ForumComment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    @JsonBackReference
+    @JsonIgnore
     Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "forum_id")
-    @JsonBackReference
+    @JsonIgnore
     Forum forum;
 }

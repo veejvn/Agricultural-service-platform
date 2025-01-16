@@ -27,7 +27,7 @@ public class ProductRequest {
     @NotBlank(message = "Thumbnail is required")
     String thumbnail;
 
-    @NotEmpty(message = "At least one image is required")
+    //@NotEmpty(message = "At least one image is required")
     Set<String> imagePaths;
 
     @NotBlank(message = "Category is required")

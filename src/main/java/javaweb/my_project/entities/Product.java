@@ -8,6 +8,7 @@ import javaweb.my_project.enums.ProductStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,13 +37,15 @@ public class Product {
 
     String thumbnail;
 
+    LocalDateTime createdAt;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     ProductStatus status;
 
-//    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    MarketPrice marketPrice;
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    MarketPrice marketPrice;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
     @EqualsAndHashCode.Exclude
@@ -50,11 +53,9 @@ public class Product {
     @JsonManagedReference
     Set<Image> images = new HashSet<>();
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
-//    @EqualsAndHashCode.Exclude
-//    @ToString.Exclude
-//    @JsonManagedReference
-//    Set<Review> reviews = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+    @JsonIgnore
+    Set<Review> reviews = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
     @JsonIgnore
@@ -77,8 +78,9 @@ public class Product {
 
     @PrePersist
     void onCreate(){
-        this.status = ProductStatus.PENDING;
+        this.status = ProductStatus.ACTIVE;
         this.rating = 0.0;
         this.sold = 0;
+        this.createdAt = LocalDateTime.now();
     }
 }

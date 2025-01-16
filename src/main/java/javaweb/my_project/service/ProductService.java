@@ -40,9 +40,11 @@ public class ProductService {
         product.setFarmer(farmer);
         product.setCategory(category);
         Set<Image> images = new HashSet<>();
-        for(String imagePath : request.getImagePaths()){
-            Image image = Image.builder().path(imagePath).product(product).build();
-            images.add(image);
+        if(request.getImagePaths() != null) {
+            for (String imagePath : request.getImagePaths()) {
+                Image image = Image.builder().path(imagePath).product(product).build();
+                images.add(image);
+            }
         }
         product.setImages(images);
         productRepository.save(product);
@@ -56,7 +58,7 @@ public class ProductService {
 
     public List<ProductResponse> getAllByFarmer(){
         String farmerId = securityUtil.getFarmerId();
-        List<Product> products = productRepository.findAllByFarmerIdAndStatusNot(farmerId, ProductStatus.DELETED);
+        List<Product> products = productRepository.findAllByFarmerIdAndStatusNot(farmerId, ProductStatus.DELETED, Sort.by("createdAt").descending());
         return productMapper.toListProductResponse(products);
     }
 
@@ -81,9 +83,11 @@ public class ProductService {
                 () -> new AppException(HttpStatus.NOT_FOUND, "Category not found", "category-e-02")
         );
         productMapper.updateProduct(product, request);
-        for(String imagePath : request.getImagePaths()){
-            Image image = Image.builder().path(imagePath).product(product).build();
-            product.getImages().add(image);
+        if(request.getImagePaths() != null) {
+            for (String imagePath : request.getImagePaths()) {
+                Image image = Image.builder().path(imagePath).product(product).build();
+                product.getImages().add(image);
+            }
         }
         product.setCategory(category);
         productRepository.save(product);

@@ -1,6 +1,7 @@
 package javaweb.my_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,13 +34,11 @@ public class Forum {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    @JsonBackReference
+    @JsonIgnore
     Account account;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "forum", orphanRemoval = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     Set<ForumComment> forumComments = new HashSet<>();
 
 }
