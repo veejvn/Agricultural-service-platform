@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PasswordUtil {
-    PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     public String encodePassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
